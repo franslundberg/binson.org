@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://web.archive.org/web/20201205135930/http://binson.org/binson-schema.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./binson-schema_files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app209.us.archive.org';v.server_ms=342;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="./binson-schema_files/bundle-playback.js" charset="utf-8"></script>
+<script type="text/javascript" src="./binson-schema_files/wombat.js" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://binson.org/binson-schema.html","20201205135930","https://web.archive.org/","web","/_static/",
+	      "1607176770");
+</script>
+<link rel="stylesheet" type="text/css" href="./binson-schema_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="./binson-schema_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+  
+  <title>BINSON-SCHEMA - Simple schema validation of Binson objects</title>
+  <link rel="stylesheet" href="./binson-schema_files/style.css">
+  <meta name="keywords" content="Binson, Binson Schema, validation, XML Schema">
+</head>
+
+<body><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20201205135930/http://binson.org/binson-schema.html</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(675,27,25,2,"web","http://binson.org/binson-schema.html","20201205135930",1996,"/_static/",["/_static/css/banner-styles.css?v=fantwOh2","/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+<div class="content">
+
+<!-- ===================== -->
+<p class="ha">&nbsp;BINSON-SCHEMA&nbsp;</p>
+
+
+<p>Binson Schema is an an exceptionally light-weight approach to validate 
+the structure of a Binson object using another Binson object, "the schema", 
+as a template. It's like XML Schema for XML, but orders of magnitude 
+less complex. In fact, the complete Java implementation of it is less than 
+100 lines of code.</p>
+
+<p>The code to validate a Binson object using the Java implementation is:</p>
+
+<pre class="source">    b.validate(schema);
+</pre>
+
+<p>where <i>b</i> is the Binson object to be validated and <i>schema</i> is the 
+Binson schema; also a Binson object.</p>
+
+<p>A Binson schema relates to a Binson object like an XML schema relates to 
+an XML document.</p>
+
+<p>Consider a Binson schema. For each field, x, of the Binson objects to be 
+validated, the schema object contains a corresponding field with the expected
+name and type of the field. In addition, an accompanying, x-info, 
+field is added. The "-info" field describes the field with human-readable 
+documentation ("doc"). A field is mandatory by default, and optional when 
+marked as such. See examples.</p>
+
+<p>The example below shows a Binson schema. It specifies that a Binson 
+object that is valid according to the schema may or may not have a 'zone' field.
+The field is optional. If 'zone' is present in the object, it must be of type 
+string and must be a name of a time zone.</p>
+
+<pre class="source">{ 
+  "zone": "CET", 
+  "zone-info": { 
+    "doc": "time zone name, if not set UTC is used", 
+    "optional": true
+  }
+} 
+</pre>
+
+<p>Examples of four valid Binson objects with respect to the above schema:</p>
+
+<pre class="source">{ 
+  "zone": "EET"
+}
+
+{ 
+  "zone": "EET",
+  "extraField": "extra field is allowed, object still valid"
+}
+
+{
+  "zone": ""
+}
+
+{
+}
+</pre>
+
+<p>Note that the empty object (the last one) is valid since the spec has 
+no mandatory fields.</p>
+
+<p>Example of one invalid Binson object with respect to the schema:</p>
+
+<pre class="source">{
+  "zone": 123
+}
+</pre>
+
+<p>An object is invalid if (and only if) it has a zone field that is not 
+of type 'string'.</p>
+
+<p>Note that if the "optional" field of the schema would be false or would 
+be missing, than the "zone" field would be mandatory and valid Binson 
+objects must include the field. In our examples, the empty Binson object 
+({}) would then be invalid with respect to the schema.</p><p>
+
+</p><p>That is it for an introduction. Hopefully that is enough for a basic
+understanding. For details, read the Binson.validate() method of the 
+<a href="https://web.archive.org/web/20201205135930/https://github.com/franslundberg/binson-java">Java implementation</a>.
+It is the reference implementation of BINSON-SCHEMA.</p>
+
+<p><span class="small">Page version: 161012.</span></p>
+
+</div> <!-- end of content -->
+
+
+
+<!--
+     FILE ARCHIVED ON 13:59:30 Dec 05, 2020 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 11:54:38 Sep 29, 2022.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 259.613
+  exclusion.robots: 0.23
+  exclusion.robots.policy: 0.22
+  cdx.remote: 0.08
+  esindex: 0.011
+  LoadShardBlock: 232.893 (3)
+  PetaboxLoader3.resolve: 97.772 (2)
+  PetaboxLoader3.datanode: 189.639 (4)
+  CDXLines.iter: 16.293 (3)
+  load_resource: 75.564
+--></body></html>

@@ -1,0 +1,82 @@
+/* style.css - style for binson.org. Frans Lundberg, 2014. */
+
+@font-face {
+    font-family: "Courier 10 Pitch";
+    font-weight: bold;
+    src: local("Courier 10 Pitch Bold"), url("/web/20190130225536im_/http://binson.org/courier-10-pitch-bold.woff");
+}
+
+@font-face {
+  font-family: "impact_labelregular";
+  font-weight: normal;
+  src: url("/web/20190130225536im_/http://binson.org/Impact_Label.woff") format("woff");
+}
+
+body {
+  font-size: 100%;
+  font-family: Arial, sans-serif;
+  color: black;
+  background: white;
+  margin: 0px;
+  padding: 0px;
+}
+
+.content {
+  width: 88%;
+  max-width: 42em;
+  margin-left: 6%;
+  margin-right: 6%;
+  margin-top: 1.4em;
+  margin-bottom: 1.4em;
+}
+
+.ha {
+  font-family: "impact_labelregular";
+  font-size: 2.6em;
+  margin: 0.4em 0 0.4em 0;
+  text-align: left;
+}
+
+.hb {
+  font-family: "impact_labelregular";
+  font-size: 1.8em;
+  line-height: 1em;
+  margin-top: 1.0em;
+  text-align: left;
+}
+
+.small {
+  font-size: 0.6em;
+  color: gray;
+}
+
+p {
+  margin-bottom: 0.6em;
+  margin-top: 0.6em;
+  text-align: justify;
+}
+
+li {
+  margin-bottom: 0.4em;
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+  background: #a6f;
+}
+
+.source {
+  font-family: "Liberation Mono", "Lucida Console", "Lucida Sans Typewriter", monospace;
+  font-size: 0.90em;
+  line-height: 120%;
+  color: black;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+}
+

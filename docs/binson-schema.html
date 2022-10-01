@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="keywords" content="Binson, Binson Schema, validation, XML Schema"> 
+  <title>BINSON-SCHEMA - Simple schema validation of Binson objects</title>
+  <link rel="stylesheet" href="./binson-schema_files/style.css">
+</head>
+
+<body>
+<div class="content">
+
+<!-- ===================== -->
+<p class="ha">&nbsp;BINSON-SCHEMA&nbsp;</p>
+
+<p>Binson Schema is an an exceptionally light-weight approach to validate 
+the structure of a Binson object using another Binson object, "the schema", 
+as a template. It's like XML Schema for XML, but orders of magnitude 
+less complex. In fact, the complete Java implementation of it is less than 
+100 lines of code.</p>
+
+<p>The code to validate a Binson object using the Java implementation is:</p>
+
+<pre class="source">    b.validate(schema);
+</pre>
+
+<p>where <i>b</i> is the Binson object to be validated and <i>schema</i> is the 
+Binson schema; also a Binson object.</p>
+
+<p>A Binson schema relates to a Binson object like an XML schema relates to 
+an XML document.</p>
+
+<p>Consider a Binson schema. For each field, x, of the Binson objects to be 
+validated, the schema object contains a corresponding field with the expected
+name and type of the field. In addition, an accompanying, x-info, 
+field is added. The "-info" field describes the field with human-readable 
+documentation ("doc"). A field is mandatory by default, and optional when 
+marked as such. See examples.</p>
+
+<p>The example below shows a Binson schema. It specifies that a Binson 
+object that is valid according to the schema may or may not have a 'zone' field.
+The field is optional. If 'zone' is present in the object, it must be of type 
+string and must be a name of a time zone.</p>
+
+<pre class="source">{ 
+  "zone": "CET", 
+  "zone-info": { 
+    "doc": "time zone name, if not set UTC is used", 
+    "optional": true
+  }
+} 
+</pre>
+
+<p>Examples of four valid Binson objects with respect to the above schema:</p>
+
+<pre class="source">{ 
+  "zone": "EET"
+}
+
+{ 
+  "zone": "EET",
+  "extraField": "extra field is allowed, object still valid"
+}
+
+{
+  "zone": ""
+}
+
+{
+}
+</pre>
+
+<p>Note that the empty object (the last one) is valid since the spec has 
+no mandatory fields.</p>
+
+<p>Example of one invalid Binson object with respect to the schema:</p>
+
+<pre class="source">{
+  "zone": 123
+}
+</pre>
+
+<p>An object is invalid if (and only if) it has a zone field that is not 
+of type 'string'.</p>
+
+<p>Note that if the "optional" field of the schema would be false or would 
+be missing, than the "zone" field would be mandatory and valid Binson 
+objects must include the field. In our examples, the empty Binson object 
+({}) would then be invalid with respect to the schema.</p><p>
+
+</p><p>That is it for an introduction. Hopefully that is enough for a basic
+understanding. For details, read the Binson.validate() method of the 
+<a href="https://github.com/franslundberg/binson-java">Java implementation</a>.
+It is the reference implementation of BINSON-SCHEMA.</p>
+
+<p><span class="small">Page version: 161012.</span></p>
+
+</div> <!-- end of content -->
+</body>
+</html>
