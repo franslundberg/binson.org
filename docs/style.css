@@ -3,13 +3,13 @@
 @font-face {
     font-family: "Courier 10 Pitch";
     font-weight: bold;
-    src: local("Courier 10 Pitch Bold"), url("/web/20190130225536im_/http://binson.org/courier-10-pitch-bold.woff");
+    src: local("Courier 10 Pitch Bold"), url("courier-10-pitch-bold.woff");
 }
 
 @font-face {
   font-family: "impact_labelregular";
   font-weight: normal;
-  src: url("/web/20190130225536im_/http://binson.org/Impact_Label.woff") format("woff");
+  src: url("Impact_Label.woff") format("woff");
 }
 
 body {

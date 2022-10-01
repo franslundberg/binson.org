@@ -1,9 +1,10 @@
 <!DOCTYPE html>  
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="keywords" content="Binson, JSON, serialization, data format">
   <title>Binson - Like JSON, just faster and simpler</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="keywords" content="Binson, JSON, serialization, data format">
 </head>
 
 <body>
@@ -11,7 +12,7 @@
 
 <img src="logo.png" style="width:28em;" alt="logo">
 
-<p class="hb">&nbsp;Like JSON just faster and simpler!&nbsp;</p>
+<p class="hb">Like JSON just simpler and faster!</p>
 
 <p><i>Binson</i> is an exceptionally simple binary data serialization format.
 It is similar in scope to JSON, but is faster, more compact, and simpler.</p>
@@ -73,13 +74,13 @@ less complex.</p>
 
 <hr>
 <!-- ===================== -->
-<p class="ha">&nbsp;BINSON-SPEC-1&nbsp;</p>
+<p class="ha">BINSON-SPEC-1</p>
 
 <p>This is the complete specification of the Binson serialization format, 
 version 1. Refer to it as <b style="white-space:nowrap;">BINSON-SPEC-1</b>.
 Written May&nbsp;2014 by [Frans].</p>
 
-<p class="hb">&nbsp;1. Introduction&nbsp;</p>
+<p class="hb">1. Introduction</p>
 
 <p>Binson is a simple, general-purpose data serialization format.</p>
 
@@ -98,7 +99,7 @@ and two composite types
 An array is a finite sequence of unnamed, typed values.</p>
 
 
-<p class="hb">&nbsp;2. Format&nbsp;</p>
+<p class="hb">2. Format</p>
 
 <p>The bytes of a serialized Binson object follow this [ABNF] syntax.</p>
 
@@ -131,7 +132,7 @@ raw        = *OCTET ; any sequence of bytesLen bytes
 </pre>
 
 
-<p class="hb">&nbsp;3. Rules&nbsp;</p>
+<p class="hb">3. Rules</p>
 
 <p>A finite sequence of bytes is a serialized Binson object if and only if the 
 following rules are fullfilled.</p>
@@ -146,7 +147,7 @@ following rules are fullfilled.</p>
   <li>Little-endian byte-order must be used.</li>
 </ol>
 
-<p class="hb">&nbsp;4. Recommendations&nbsp;</p>
+<p class="hb">4. Recommendations</p>
 
 <p>Non-normative recommendations:</p>
 
@@ -173,7 +174,7 @@ of linear search implementations, 2. for feasability of in-memory processing,
 3. for readability and inter-operability with other object representations, 
 4. for consistency, 5. for consistency.</p>
 
-<p class="hb">&nbsp;5. References&nbsp;</p>
+<p class="hb">5. References</p>
 
 <ul>
   <li><b>[UTF-8]</b> <a href="http://www.unicode.org/versions/Unicode6.3.0/">
@@ -200,7 +201,7 @@ of linear search implementations, 2. for feasability of in-memory processing,
 </p><p>The file <a href="http://binson.org/BINSON-SPEC-1.pdf">BINSON-SPEC-1.pdf</a> is suitable for 
 printing and sharing. Feel free to include it in your repo.</p>
 
-<p><span class="small">Page version: 2021-01-09.</span></p>
+<p><span class="small">Page version: 2022-10-01.</span></p>
 
 </div> <!--end of content-->
 </body>
