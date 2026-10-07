@@ -176,8 +176,7 @@ following rules are fulfilled.</p>
     first key-value pair, key of second key-value pair, value of second key-value
     pair and so on.</li>
   <li>A writer should store NaN as the bit pattern
-    <span class="source">0x7ff8000000000000</span> (a positive, quiet NaN),
-    that is, as the bytes <span class="source">46 00 00 00 00 00 00 f8 7f</span>.</li>
+    <span class="source">0x7ff8000000000000</span> (a positive, quiet NaN).</li>
   <li>Strings should be valid [UTF-8]. A Binson implementation need not check
     this. It can pass the bytes of a string on unchanged and leave UTF-8
     handling, including validation, to the application. An implementation
