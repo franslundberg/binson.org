@@ -1,12 +1,6 @@
 /* style.css - style for binson.org. Frans Lundberg, 2014. */
 
 @font-face {
-    font-family: "Courier 10 Pitch";
-    font-weight: bold;
-    src: local("Courier 10 Pitch Bold"), url("courier-10-pitch-bold.woff");
-}
-
-@font-face {
   font-family: "impact_labelregular";
   font-weight: normal;
   src: url("Impact_Label.woff") format("woff");
