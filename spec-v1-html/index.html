@@ -1,0 +1,208 @@
+<!DOCTYPE html>  
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="keywords" content="Binson, JSON, serialization, data format">
+  <title>Binson - Like JSON, just faster and simpler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="content">
+
+<img src="logo.png" style="width:28em;" alt="logo">
+
+<p class="hb">Like JSON just simpler and faster!</p>
+
+<p><i>Binson</i> is an exceptionally simple binary data serialization format.
+It is similar in scope to JSON, but is faster, more compact, and simpler.</p>
+
+<p>Binson has full support for double precision floating point numbers 
+(including NaN, inf). There is a one-to-one mapping between a Binson 
+object and its serialized bytes.
+This is useful for cryptographic signatures, hash codes and equals operations.
+And the best feature: <i>Binson has no nulls</i> :-)</p>
+
+<p>Implementations:</p>
+<ul>
+    <li><b>Java</b>:
+    <a href="https://github.com/franslundberg/binson-java">binson-java</a>,
+    <a href="https://github.com/franslundberg/binson-java-light">binson-java-light</a>,
+    </li>
+    
+    <li><b>C</b>: 
+    <a href="https://github.com/assaabloy-ppi/binson-c">binson-c</a>,
+    <a href="https://github.com/assaabloy-ppi/binson-c-light">binson-c-light</a>
+    </li>
+    
+    <li><b>JavaScript</b>:
+    <a href="https://github.com/assaabloy-ppi/binson-js">binson-js</a>
+    </li>
+    
+    <li><b>Go</b>:
+    <a href="https://github.com/hakanols/binson-go">binson-go</a> (Håkan Olsson),
+    <a href="https://github.com/assaabloy-ppi/binson-go">binson-go</a> (ASSA ABLOY)
+    </li>
+    
+    <li><b>Swift</b>:
+    <a href="https://github.com/assaabloy-ppi/binson-swift">binson-swift</a>
+    </li>
+    
+    <li><b>Python</b>:
+    <a href="https://github.com/assaabloy-ppi/binson-python">binson-python</a>
+    </li>
+    
+    <li><b>PHP</b>:
+    <a href="https://github.com/assaabloy-ppi/binson-php">binson-php</a>
+    </li>
+    
+    <li><b>Erlang</b>:
+    <a href="https://github.com/assaabloy-ppi/binson-erlang">binson-erlang</a>
+    </li>
+    
+    <li><b>Rust</b>:
+    <a href="https://crates.io/crates/binson">binson at crates.io</a>
+    </li>
+</ul>
+
+<p>Also, checkout <a href="binson-schema.html">BINSON-SCHEMA</a>, 
+an exceptionally light-weight approach to validate the structure of 
+a Binson object. It's like XML Schema for XML, but orders of magnitude 
+less complex.</p>
+
+<p>&nbsp;</p>
+
+<hr>
+<!-- ===================== -->
+<p class="ha">BINSON-SPEC-1</p>
+
+<p>This is the complete specification of the Binson serialization format, 
+version 1. Refer to it as <b style="white-space:nowrap;">BINSON-SPEC-1</b>.
+Written May&nbsp;2014 by [Frans].</p>
+
+<p class="hb">1. Introduction</p>
+
+<p>Binson is a simple, general-purpose data serialization format.</p>
+
+<p>This specification describes the Binson object data structure
+and how it is serialized to bytes. Like objects of common programming 
+languages, a Binson object has fields. A field is a named and typed value.
+There are seven value types: five primitive types 
+(<span class="source">boolean</span>,
+<span class="source">integer</span>,
+<span class="source">double</span>,
+<span class="source">string</span>,
+<span class="source">bytes</span>) 
+and two composite types 
+(<span class="source">array</span>,
+<span class="source">object</span>).
+An array is a finite sequence of unnamed, typed values.</p>
+
+
+<p class="hb">2. Format</p>
+
+<p>The bytes of a serialized Binson object follow this [ABNF] syntax.</p>
+
+<pre class="source">object     = begin *field end
+field      = string value
+value      = boolean / integer / double / string / bytes / array / object
+array      = beginArray *value endArray
+string     = stringLen utf
+bytes      = bytesLen raw
+boolean    = true / false
+
+begin      = %x40
+end        = %x41
+beginArray = %x42
+endArray   = %x43
+true       = %x44
+false      = %x45
+double     = %x46 float64
+integer    = %x10 int8 / %x11 int16 / %x12 int32 / %x13 int64
+stringLen  = %x14 int8 / %x15 int16 / %x16 int32
+bytesLen   = %x18 int8 / %x19 int16 / %x1a int32
+
+float64    = 8OCTET ; double precision floation point number [IEEE-754] 
+int8       = 1OCTET ;  8-bit signed two's complement integer
+int16      = 2OCTET ; 16-bit signed two's complement integer
+int32      = 4OCTET ; 32-bit signed two's complement integer
+int64      = 8OCTET ; 64-bit signed two's complement integer
+utf        = *OCTET ; stringLen number of [UTF-8] bytes
+raw        = *OCTET ; any sequence of bytesLen bytes
+</pre>
+
+
+<p class="hb">3. Rules</p>
+
+<p>A finite sequence of bytes is a serialized Binson object if and only if the 
+following rules are fullfilled.</p>
+
+<ol>
+  <li>The byte sequence must follow the format of the ABNF rule 
+    <span class="source">object</span>.</li>
+  <li>Values must be stored using as few bytes as possible.</li>
+  <li>Fields must be stored in order. The order must be the lexicographical 
+    order of the [UTF-8] bytes of the name of the fields.</li>
+  <li>Two fields of the same direct parent object cannot have the same name.</li>
+  <li>Little-endian byte-order must be used.</li>
+</ol>
+
+<p class="hb">4. Recommendations</p>
+
+<p>Non-normative recommendations:</p>
+
+<ol>
+  <li>An object should have less than 100 fields.</li>
+  <li>The size of a serialized Binson object should be less than 40 million 
+    bytes.</li>
+  <li>Field names should match the regular expression: 
+    <span class="source">[a-zA-Z][a-zA-Z0-9_]{0,49}</span>.</li>
+  <li>Field names should use camel-case and start with a lower-case letter. 
+    Acronyms should be treated as words. Examples:
+    <span class="source">g8</span>,
+    <span class="source">httpHeader</span>,
+    <span class="source">customerId</span>.</li>
+  <li>It is recommended that a map (associate array) is stored as a single 
+    <span class="source">array</span>. 
+    The order of the array values should be: key of first key-value pair, value of 
+    first key-value pair, key of second key-value pair, value of second key-value
+    pair and so on.</li>
+</ol>
+
+<p>The reasons for the recommendations are: 1. for readability and feasability
+of linear search implementations, 2. for feasability of in-memory processing, 
+3. for readability and inter-operability with other object representations, 
+4. for consistency, 5. for consistency.</p>
+
+<p class="hb">5. References</p>
+
+<ul>
+  <li><b>[UTF-8]</b> <a href="http://www.unicode.org/versions/Unicode6.3.0/">
+    The Unicode Standard, Version 6.3.0</a>.</li>
+
+  <li><b>[IEEE-754]</b> IEEE Computer Society, 
+    <i>IEEE Standard for Floating-Point Arithmetic</i>, IEEE Std 754-2008</li>
+
+  <li><b>[ABNF]</b> RFC 5234,
+    <a href="http://tools.ietf.org/html/rfc5234">tools.ietf.org/html/rfc5234</a>
+    </li>
+
+  <li><b>[Frans]</b> Frans Lundberg, Stockholm, Sweden, 
+    <a href="http://franslundberg.com/">franslundberg.com</a>,
+    <a href="tel:+46707601861">+46707601861</a></li>
+</ul>
+
+
+<hr><!-- ---- -->
+
+<p>Copyright Frans Lundberg. The specification can be shared using the 
+<a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0 licence</a>.
+
+</p><p>The file <a href="http://binson.org/BINSON-SPEC-1.pdf">BINSON-SPEC-1.pdf</a> is suitable for 
+printing and sharing. Feel free to include it in your repo.</p>
+
+<p><span class="small">Page version: 2022-10-01.</span></p>
+
+</div> <!--end of content-->
+</body>
+</html>

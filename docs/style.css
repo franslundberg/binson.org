@@ -32,6 +32,7 @@ body {
 
 .ha {
   font-family: "impact_labelregular";
+  font-weight: normal;
   font-size: 2.6em;
   margin: 0.4em 0 0.4em 0;
   text-align: left;
@@ -39,9 +40,11 @@ body {
 
 .hb {
   font-family: "impact_labelregular";
+  font-weight: normal;
   font-size: 1.8em;
   line-height: 1em;
   margin-top: 1.0em;
+  margin-bottom: 0.6em;
   text-align: left;
 }
 
@@ -80,3 +83,35 @@ a:hover {
   padding: 0;
 }
 
+
+pre.source {
+  overflow-x: auto;
+}
+
+@media (max-width: 40em) {
+  p {
+    text-align: left;
+  }
+
+  .ha {
+    font-size: 1.7em;
+  }
+
+  .hb {
+    font-size: 1.3em;
+  }
+}
+
+@media print {
+  .site {
+    display: none;
+  }
+
+  h1, h2 {
+    break-after: avoid;
+  }
+
+  pre, li {
+    break-inside: avoid;
+  }
+}

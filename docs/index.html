@@ -1,24 +1,27 @@
-<!DOCTYPE html>  
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="Binson, JSON, serialization, data format">
-  <title>Binson - Like JSON, just faster and simpler</title>
+  <title>Binson - Like JSON, just simpler and faster!</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 <div class="content">
 
-<img src="logo.png" style="width:28em;" alt="logo">
+<div class="site">
 
-<p class="hb">Like JSON just simpler and faster!</p>
+<img src="logo.png" style="width:28em; max-width:100%;" alt="Binson">
+
+<p class="hb">Like JSON, just simpler and faster!</p>
 
 <p><i>Binson</i> is an exceptionally simple binary data serialization format.
 It is similar in scope to JSON, but is faster, more compact, and simpler.</p>
 
-<p>Binson has full support for double precision floating point numbers 
-(including NaN, inf). There is a one-to-one mapping between a Binson 
+<p>Binson has full support for double precision floating point numbers
+(including NaN, inf). There is a one-to-one mapping between a Binson
 object and its serialized bytes.
 This is useful for cryptographic signatures, hash codes and equals operations.
 And the best feature: <i>Binson has no nulls</i> :-)</p>
@@ -27,79 +30,82 @@ And the best feature: <i>Binson has no nulls</i> :-)</p>
 <ul>
     <li><b>Java</b>:
     <a href="https://github.com/franslundberg/binson-java">binson-java</a>,
-    <a href="https://github.com/franslundberg/binson-java-light">binson-java-light</a>,
+    <a href="https://github.com/franslundberg/binson-java-light">binson-java-light</a>
     </li>
-    
-    <li><b>C</b>: 
+
+    <li><b>C</b>:
     <a href="https://github.com/assaabloy-ppi/binson-c">binson-c</a>,
     <a href="https://github.com/assaabloy-ppi/binson-c-light">binson-c-light</a>
     </li>
-    
+
     <li><b>JavaScript</b>:
     <a href="https://github.com/assaabloy-ppi/binson-js">binson-js</a>
     </li>
-    
+
     <li><b>Go</b>:
     <a href="https://github.com/hakanols/binson-go">binson-go</a> (Håkan Olsson),
     <a href="https://github.com/assaabloy-ppi/binson-go">binson-go</a> (ASSA ABLOY)
     </li>
-    
+
     <li><b>Swift</b>:
     <a href="https://github.com/assaabloy-ppi/binson-swift">binson-swift</a>
     </li>
-    
+
     <li><b>Python</b>:
     <a href="https://github.com/assaabloy-ppi/binson-python">binson-python</a>
     </li>
-    
+
     <li><b>PHP</b>:
     <a href="https://github.com/assaabloy-ppi/binson-php">binson-php</a>
     </li>
-    
+
     <li><b>Erlang</b>:
     <a href="https://github.com/assaabloy-ppi/binson-erlang">binson-erlang</a>
     </li>
-    
+
     <li><b>Rust</b>:
     <a href="https://crates.io/crates/binson">binson at crates.io</a>
     </li>
 </ul>
 
-<p>Also, checkout <a href="binson-schema.html">BINSON-SCHEMA</a>, 
-an exceptionally light-weight approach to validate the structure of 
-a Binson object. It's like XML Schema for XML, but orders of magnitude 
+<p>Also, check out <a href="binson-schema.html">BINSON-SCHEMA</a>,
+an exceptionally light-weight approach to validate the structure of
+a Binson object. It's like XML Schema for XML, but orders of magnitude
 less complex.</p>
 
 <p>&nbsp;</p>
 
 <hr>
+
+</div> <!-- end of site -->
+
 <!-- ===================== -->
-<p class="ha">BINSON-SPEC-1</p>
+<h1 class="ha" id="spec">BINSON-SPEC-1.1</h1>
 
-<p>This is the complete specification of the Binson serialization format, 
-version 1. Refer to it as <b style="white-space:nowrap;">BINSON-SPEC-1</b>.
-Written May&nbsp;2014 by [Frans].</p>
+<p>This is the complete specification of the Binson serialization format,
+version 1.1. Refer to it as <b style="white-space:nowrap;">BINSON-SPEC-1.1</b>.
+Published October&nbsp;2026.</p>
 
-<p class="hb">1. Introduction</p>
+<h2 class="hb" id="introduction">1. Introduction</h2>
 
 <p>Binson is a simple, general-purpose data serialization format.</p>
 
 <p>This specification describes the Binson object data structure
-and how it is serialized to bytes. Like objects of common programming 
+and how it is serialized to bytes. Like objects of common programming
 languages, a Binson object has fields. A field is a named and typed value.
-There are seven value types: five primitive types 
+There are seven value types: five primitive types
 (<span class="source">boolean</span>,
 <span class="source">integer</span>,
 <span class="source">double</span>,
 <span class="source">string</span>,
-<span class="source">bytes</span>) 
-and two composite types 
+<span class="source">bytes</span>)
+and two composite types
 (<span class="source">array</span>,
 <span class="source">object</span>).
 An array is a finite sequence of unnamed, typed values.</p>
 
 
-<p class="hb">2. Format</p>
+<h2 class="hb" id="format">2. Format</h2>
 
 <p>The bytes of a serialized Binson object follow this [ABNF] syntax.</p>
 
@@ -122,7 +128,7 @@ integer    = %x10 int8 / %x11 int16 / %x12 int32 / %x13 int64
 stringLen  = %x14 int8 / %x15 int16 / %x16 int32
 bytesLen   = %x18 int8 / %x19 int16 / %x1a int32
 
-float64    = 8OCTET ; double precision floation point number [IEEE-754] 
+float64    = 8OCTET ; double precision floating point number [IEEE-754]
 int8       = 1OCTET ;  8-bit signed two's complement integer
 int16      = 2OCTET ; 16-bit signed two's complement integer
 int32      = 4OCTET ; 32-bit signed two's complement integer
@@ -132,77 +138,155 @@ raw        = *OCTET ; any sequence of bytesLen bytes
 </pre>
 
 
-<p class="hb">3. Rules</p>
+<h2 class="hb" id="rules">3. Rules</h2>
 
-<p>A finite sequence of bytes is a serialized Binson object if and only if the 
-following rules are fullfilled.</p>
+<p>A finite sequence of bytes is a serialized Binson object if and only if the
+following rules are fulfilled.</p>
 
 <ol>
-  <li>The byte sequence must follow the format of the ABNF rule 
+  <li>The byte sequence must follow the format of the ABNF rule
     <span class="source">object</span>.</li>
   <li>Values must be stored using as few bytes as possible.</li>
-  <li>Fields must be stored in order. The order must be the lexicographical 
-    order of the [UTF-8] bytes of the name of the fields.</li>
+  <li>Fields must be stored in order. The order must be the lexicographical
+    order of the [UTF-8] bytes of the name of the fields. Bytes are compared
+    as unsigned numbers (0 to 255).</li>
   <li>Two fields of the same direct parent object cannot have the same name.</li>
   <li>Little-endian byte-order must be used.</li>
 </ol>
 
-<p class="hb">4. Recommendations</p>
+
+<h2 class="hb" id="recommendations">4. Recommendations</h2>
 
 <p>Non-normative recommendations:</p>
 
 <ol>
   <li>An object should have less than 100 fields.</li>
-  <li>The size of a serialized Binson object should be less than 40 million 
+  <li>The size of a serialized Binson object should be less than 40 million
     bytes.</li>
-  <li>Field names should match the regular expression: 
+  <li>Field names should match the regular expression:
     <span class="source">[a-zA-Z][a-zA-Z0-9_]{0,49}</span>.</li>
-  <li>Field names should use camel-case and start with a lower-case letter. 
+  <li>Field names should use camel-case and start with a lower-case letter.
     Acronyms should be treated as words. Examples:
     <span class="source">g8</span>,
     <span class="source">httpHeader</span>,
     <span class="source">customerId</span>.</li>
-  <li>It is recommended that a map (associate array) is stored as a single 
-    <span class="source">array</span>. 
-    The order of the array values should be: key of first key-value pair, value of 
+  <li>It is recommended that a map (associative array) is stored as a single
+    <span class="source">array</span>.
+    The order of the array values should be: key of first key-value pair, value of
     first key-value pair, key of second key-value pair, value of second key-value
     pair and so on.</li>
+  <li>A writer should store NaN as the bit pattern
+    <span class="source">0x7ff8000000000000</span> (a positive, quiet NaN),
+    that is, as the bytes <span class="source">46 00 00 00 00 00 00 f8 7f</span>.</li>
+  <li>Strings should be valid [UTF-8]. A Binson implementation need not check
+    this. It can pass the bytes of a string on unchanged and leave UTF-8
+    handling, including validation, to the application. An implementation
+    that converts strings to a native string type may reject or change
+    strings that are not valid UTF-8.</li>
 </ol>
 
-<p>The reasons for the recommendations are: 1. for readability and feasability
-of linear search implementations, 2. for feasability of in-memory processing, 
-3. for readability and inter-operability with other object representations, 
-4. for consistency, 5. for consistency.</p>
+<p>The reasons for the recommendations are: 1. for readability and feasibility
+of linear search implementations, 2. for feasibility of in-memory processing,
+3. for readability and inter-operability with other object representations,
+4. for consistency, 5. for consistency, 6. different programming languages
+produce different NaN bit patterns by default, and using one pattern gives
+the same bytes everywhere, 7. Binson treats a string as bytes marked as
+UTF-8 text. Checking and decoding the text belongs to the code that uses it,
+which keeps Binson implementations simple.</p>
 
-<p class="hb">5. References</p>
+<h2 class="hb" id="values">5. Values</h2>
+
+<p>This section describes the values that the bytes represent.</p>
 
 <ul>
-  <li><b>[UTF-8]</b> <a href="http://www.unicode.org/versions/Unicode6.3.0/">
-    The Unicode Standard, Version 6.3.0</a>.</li>
+  <li>An <span class="source">integer</span> is a signed 64-bit integer, from
+    -2<sup>63</sup> to 2<sup>63</sup>-1.</li>
+  <li>A <span class="source">double</span> is its 64-bit pattern, interpreted
+    as an [IEEE-754] binary64 number.</li>
+  <li>A <span class="source">string</span> is a sequence of bytes marked as
+    [UTF-8] text. Binson does not interpret the content of a string; the type
+    is what distinguishes it from a <span class="source">bytes</span> value.</li>
+  <li>A <span class="source">bytes</span> value is any sequence of
+    bytes.</li>
+</ul>
 
-  <li><b>[IEEE-754]</b> IEEE Computer Society, 
-    <i>IEEE Standard for Floating-Point Arithmetic</i>, IEEE Std 754-2008</li>
+<p>With these definitions, the rules of section 3 give each Binson object
+exactly one serialization.</p>
 
-  <li><b>[ABNF]</b> RFC 5234,
-    <a href="http://tools.ietf.org/html/rfc5234">tools.ietf.org/html/rfc5234</a>
+<h2 class="hb" id="references">6. References</h2>
+
+<ul>
+  <li><b>[UTF-8]</b> RFC 3629, <i>UTF-8, a transformation format of
+    ISO 10646</i>,
+    <a href="https://www.rfc-editor.org/rfc/rfc3629">rfc-editor.org/rfc/rfc3629</a>.
     </li>
 
-  <li><b>[Frans]</b> Frans Lundberg, Stockholm, Sweden, 
-    <a href="http://franslundberg.com/">franslundberg.com</a>,
-    <a href="tel:+46707601861">+46707601861</a></li>
+  <li><b>[IEEE-754]</b> IEEE Computer Society,
+    <i>IEEE Standard for Floating-Point Arithmetic</i>, IEEE Std 754-2019.</li>
+
+  <li><b>[ABNF]</b> RFC 5234, <i>Augmented BNF for Syntax Specifications:
+    ABNF</i>,
+    <a href="https://www.rfc-editor.org/rfc/rfc5234">rfc-editor.org/rfc/rfc5234</a>.
+    </li>
+
+  <li><b>[FRANS]</b> Frans Lundberg, Stockholm, Sweden,
+    <a href="https://franslundberg.com/">franslundberg.com</a>,
+    <a href="tel:+46707601861">+46707601861</a>.</li>
 </ul>
+
+<p><i>End of BINSON-SPEC-1.1.</i></p>
+
+<hr> <!----- --------------------------------------------------->
+
+<p>The sections below are not part of the specification. They are
+non-normative and may be updated without a new version of the 
+specification.</p>
+
+<h2 class="hb" id="example">Example</h2>
+
+<p>The object below, written in JSON-like notation,</p>
+
+<pre class="source">{ "a": 1, "b": [true, 300], "c": "hi", "d": 1.5 }
+</pre>
+
+<p>is serialized to these 35 bytes (hexadecimal):</p>
+
+<pre class="source">40                          begin
+14 01 61                    string "a"
+10 01                       integer 1
+14 01 62                    string "b"
+42                          beginArray
+44                          true
+11 2c 01                    integer 300
+43                          endArray
+14 01 63                    string "c"
+14 02 68 69                 string "hi"
+14 01 64                    string "d"
+46 00 00 00 00 00 00 f8 3f  double 1.5
+41                          end
+</pre>
+
+<h2 class="hb" id="changes">Changes from BINSON-SPEC-1</h2>
+
+<p>BINSON-SPEC-1.1 does not change the Binson format. It clarifies 
+BINSON-SPEC-1 and fixes editorial errors. It updates references and adds the recommendations
+to serialize NaN values as <span class="source">0x7ff8000000000000</span>
+and to use valid UTF-8 in strings.
+Version 1 is available as
+<a href="BINSON-SPEC-1.pdf">BINSON-SPEC-1.pdf</a>.</p>
+
 
 
 <hr><!-- ---- -->
 
-<p>Copyright Frans Lundberg. The specification can be shared using the 
-<a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0 licence</a>.
+<p>Copyright Frans Lundberg 2014-2026. The specification can be shared using the
+<a href="https://creativecommons.org/licenses/by-nd/4.0/">CC BY-ND 4.0 licence</a>.</p>
 
-</p><p>The file <a href="http://binson.org/BINSON-SPEC-1.pdf">BINSON-SPEC-1.pdf</a> is suitable for 
-printing and sharing. Feel free to include it in your repo.</p>
+<p class="site">The file <a href="BINSON-SPEC-1.1.pdf">BINSON-SPEC-1.1.pdf</a> is
+suitable for printing and sharing. Feel free to include it in your repo.</p>
 
-<p><span class="small">Page version: 2022-10-01.</span></p>
+<p><span class="small">Page version: 2026-10-07.</span></p>
 
-</div> <!--end of content-->
+</div> <!-- end of content -->
 </body>
 </html>
